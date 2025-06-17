@@ -1,5 +1,5 @@
 # PyocinTyper
-Type pyocins of Pseudomonas aeruginosa.
+Type pyocins of *Pseudomonas aeruginosa*.
 
 ## Dependencies
 
