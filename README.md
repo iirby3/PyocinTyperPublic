@@ -3,28 +3,28 @@ Type pyocins of Pseudomonas aeruginosa.
 
 ## Dependencies
 
-**Nextflow**
+**Nextflow**  
 Install nextflow following the instructions at https://www.nextflow.io/docs/latest/getstarted.html
 
-**cd-hit:**
+**cd-hit**  
 
 Install cd-hit following the instructions at https://github.com/weizhongli/cdhit.
 
-**Anaconda:**
-This pipleine is enabled with conda. Install conda at https://anaconda.org/.
+**Anaconda**  
+This pipleine is enabled with conda. Install conda at https://anaconda.org/.  
 
 All dependencies must be added to path.
 
 ## Installation
-Via github:
+**Via github:**  
 git clone git@github.com:GaTechBrownLab/PyocinTyper.git
 
-Via nextflow:
+**Via nextflow:**  
 nextflow pull GaTechBrownLab/PyocinTyper
 
 ## Usage
 
-**Basic usage:**
+**Basic usage:**  
 nextflow run main.nf -with-conda --pt_option <group|individual> --input_files = "./data/*.gbff" --outdir "/results"
 
 ## Documentation
