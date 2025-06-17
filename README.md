@@ -16,7 +16,9 @@ All dependencies must be added to path.
 
 ## Installation
 **Via github:**  
+```bash 
 git clone git@github.com:GaTechBrownLab/PyocinTyper.git
+```
 
 **Via nextflow:** 
 ```bash 
