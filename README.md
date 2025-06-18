@@ -1,4 +1,6 @@
 # PyocinTyper
+<img src="https://github.com/user-attachments/assets/44aa2bfe-7b94-4d5f-9e33-6b64dfb840e8" alt="PyocinTyper Logo" width="400"/>
+
 Type pyocins of *Pseudomonas aeruginosa*.
 
 ## Dependencies
