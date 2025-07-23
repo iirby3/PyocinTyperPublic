@@ -3,8 +3,7 @@ process sep_multifasta {
     publishDir "${params.outdir}/pyocin_fasta", mode: 'copy'
 
     input:
-        path multifasta
-        tuple val(ID), path(list)
+        tuple val(ID), path(list), path(multifasta)
 
 
     output:

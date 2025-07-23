@@ -1,7 +1,5 @@
 process blast {
 
-    conda 'bioconda::blast'
-
     cpus "${params.blast_threads}"
 
     memory '20 GB'
@@ -9,8 +7,7 @@ process blast {
     publishDir "${params.outdir}/blast_results", mode: 'copy'
 
     input:
-        tuple val(ID), path(query), val(PID), val(NID)
-        path blast_db_path
+        tuple val(ID), path(query), val(PID), val(NID), path(blast_db_path)
 
     output:
         tuple val(ID), path("${ID}.txt"), val(PID), val(NID), emit: blast_output

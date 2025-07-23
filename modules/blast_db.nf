@@ -1,7 +1,5 @@
 process blast_db {
 
-    conda 'bioconda::blast'
-
     input:
         path ref
 

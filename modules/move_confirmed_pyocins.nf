@@ -3,8 +3,7 @@ process move_confirmed_pyocins {
     publishDir "${params.outdir}/pyocin_fasta/confirmed", mode: 'copy'
 
     input:
-        path multifasta
-        tuple val(ID), path(list)
+        tuple val(ID), path(list), path(multifasta)
 
     output:
         path "confirmed_${ID}_pyocin_fasta/*", optional: true, emit: confirmed_pyocin_fasta

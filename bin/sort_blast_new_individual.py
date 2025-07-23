@@ -1,20 +1,16 @@
+#!/usr/bin/env python3
+
 import pandas as pd
 import numpy as np
 import glob, os
 import sys
 
 if __name__ == "__main__":
-    list_input = sys.argv[1]
-    blast_input = sys.argv[2]
-    R_pyocin_PID = sys.argv[3]
-    R_pyocin_NID = sys.argv[4]
-    F_pyocin_PID = sys.argv[5]
-    F_pyocin_NID = sys.argv[6]
-
-header = pd.read_table(f"{list_input}", sep="\t", header=None)
-header.rename(columns = {0:'Header'}, inplace = True)
-
-header_no_dup = header.drop_duplicates()
+    blast_input = sys.argv[1]
+    R_pyocin_PID = sys.argv[2]
+    R_pyocin_NID = sys.argv[3]
+    F_pyocin_PID = sys.argv[4]
+    F_pyocin_NID = sys.argv[5]
 
 blast_all = pd.read_table(f'{blast_input}', names = ['qseqid', 'Header', 'sacc', 'pident', 'nident', 'qlen', 'length', 'evalue', 'slen', 'qstart', 'qend', 'sstart', 'send'])
 
@@ -36,7 +32,11 @@ def reformat_blast(df, PID, NID):
     
     sum['Pyocin_Length'] = length
     
+    print(sum['length'])
+    
     sum['Query_Cov'] = ((sum['length']/sum['Pyocin_Length'])*100)
+    
+    print(sum)
     
     sum = sum[(sum['Query_Cov'] >= float(NID))]
     
@@ -59,14 +59,11 @@ F_no_both = missing_rows(F_table_drop, R_and_F)
 
 all_confirmed = pd.concat([R_no_both, F_no_both, R_and_F])
 
-unconfirmed = missing_rows(all_confirmed, header)
-
 R_no_both['Type'] = "Confirmed R"
 F_no_both['Type'] = "Confirmed F"
 R_and_F['Type'] = "Confirmed RF"
-unconfirmed['Type'] = "Unconfirmed"
 
-all_pyocins = pd.concat([R_no_both, F_no_both, R_and_F, unconfirmed])
+all_pyocins = pd.concat([R_no_both, F_no_both, R_and_F])
 
 all_pyocins.to_csv("Pyocin_typed.csv", index=False)
 
@@ -78,6 +75,3 @@ F_no_both_drop.to_csv("Confirmed_F_Pyocins.txt", index=False, header=False)
 
 R_and_F_drop = R_and_F[["Header"]]
 R_and_F_drop.to_csv("Confirmed_RF_Pyocins.txt", index=False, header=False)
-
-unconfirmed_drop = unconfirmed[["Header"]]
-unconfirmed_drop.to_csv("Confirmed_unconfirmed_Pyocins.txt", index=False, header=False)

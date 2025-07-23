@@ -1,7 +1,5 @@
 process cd_hit {
-
-    conda 'bioconda::blast=2.12'
-
+    
     publishDir "${params.outdir}/cd-hit", mode: 'copy'
 
     memory '8 GB'
