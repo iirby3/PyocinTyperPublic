@@ -1,7 +1,5 @@
 process merge_pyocins {
 
-    conda 'bioconda::seqkit'
-
     publishDir "${params.outdir}/pyocin_fasta", mode: 'copy'
 
     input:

@@ -1,7 +1,5 @@
 process phispy {
-
-    conda 'bioconda::phispy'
-
+    
     cpus "${params.phispy_threads}"
 
     publishDir "${params.outdir}/phispy", mode: 'copy'

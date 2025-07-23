@@ -1,0 +1,11 @@
+name: PyocinTyper
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - blast
+  - seqkit
+  - phispy
+  - pandas
+  - numpy

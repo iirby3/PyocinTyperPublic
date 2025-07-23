@@ -1,11 +1,9 @@
 process reformat_pyocin_blast {
 
-    conda 'conda-forge::pandas conda-forge::numpy'
-
     publishDir "${params.outdir}/blast_results", mode: 'copy'
 
     input:
-        tuple val(ID), path(blast_result), val(PID), val(NID), path(cluster_overview), path(ref_clusters), val(scripts)
+        tuple val(ID), path(blast_result), val(PID), val(NID), path(cluster_overview), path(ref_clusters)
 
     output:
         tuple val(ID), path("${ID}_fasta.txt"), emit: pyocin_fasta
@@ -13,8 +11,8 @@ process reformat_pyocin_blast {
         
     script:
     """
-    python "${scripts}/pyocin_analysis_new.py" "$blast_result" "$ID" "$PID" "$NID"
-    python "${scripts}/reformat_pyocins_new.py" "$cluster_overview" "$ref_clusters" "${ID}_fasta.txt" "$ID"
+    pyocin_analysis_new.py "$blast_result" "$ID" "$PID" "$NID"
+    reformat_pyocins_new.py "$cluster_overview" "$ref_clusters" "${ID}_fasta.txt" "$ID"
 
     """
 }

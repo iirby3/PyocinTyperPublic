@@ -5,14 +5,13 @@
     PyocinTyper
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     Github : https://github.com/GaTechBrownLab/PyocinTyper
-    Author: Iris Irby, irisirby2018@gmai.com
+    Author: Iris Irby, irisirby2018@gmail.com
 ----------------------------------------------------------------------------------------
 */
 
-/*
- * HELP MESSAGE
- */
-
+//
+// HELP MESSAGE
+//
 def helpMessage() {
     log.info"""
     =========================================
@@ -25,23 +24,23 @@ def helpMessage() {
     Required arguments:
         --pt_option                 Specifiy if you are typing multiple pyocins <group>
                                     or a single pyocin <individual>
-        --input_files               Path to input genbank (.gbff) files.
+        --input_files               Path to input genbank (.gbff) files
                                     Directory pattern for individual: "./data/strain.gbff"
                                     Directory pattern for group: "./data/*.gbff" 
-        --outdir                    Output directory for results.
+        --outdir                    Output directory for results
 
     Blast thresholds:
-        --R_pyocin_PID_cutoff       Percent identity cutoff for R pyocins.
+        --R_pyocin_PID_cutoff       Percent identity cutoff for R pyocins
                                     (default: 70)
-        --R_pyocin_NID_cutoff       Nucleotide identity cutoff for R pyocins.
+        --R_pyocin_NID_cutoff       Nucleotide identity cutoff for R pyocins
                                     (default: 70)
-        --F_pyocin_PID_cutoff       Percent identity cutoff for F pyocins.
+        --F_pyocin_PID_cutoff       Percent identity cutoff for F pyocins
                                     (default: 65)
-        --F_pyocin_NID_cutoff       Nucleotide identity cutoff for F pyocins.
+        --F_pyocin_NID_cutoff       Nucleotide identity cutoff for F pyocins
                                     (default: 65)
-        --tail_PID_cutoff           Percent identity cutoff for tail fibers.
+        --tail_PID_cutoff           Percent identity cutoff for tail fibers
                                     (default: 95)
-        --tail_NID_cutoff           Nucleotide identity cutoff for tail fibers.
+        --tail_NID_cutoff           Nucleotide identity cutoff for tail fibers
                                     (default: 95)
 
     Other parameters:
@@ -49,24 +48,24 @@ def helpMessage() {
                                     (default: 70)
 
     Performance options:
-        --phispy_threads            Specify number of threads for PhiSpy.
+        --phispy_threads            Specify number of threads for PhiSpy
                                     (default: 1)
-        --blast_threads             Specify number of threads for blast.
+        --blast_threads             Specify number of threads for blast
                                     (default: 1)
         
     """.stripIndent()
 }
 
-/*
- * IMPORT WORKFLOWS
- */
+//
+// IMPORT WORKFLOWS
+//
 
 include { PYOCIN_TYPER_GROUP } from './workflows/PYOCIN_TYPER_GROUP.nf'
 include { PYOCIN_TYPER_INDIVIDUAL } from './workflows/PYOCIN_TYPER_INDIVIDUAL.nf'
 
-/*
- * RUN MAIN WORKFLOW
- */
+//
+// RUN MAIN WORKFLOW
+//
 
 workflow {
     main:
@@ -87,10 +86,6 @@ workflow {
 
         // Make channels from parameters
         input_files_ch = Channel.fromPath( params.input_files )
-        tail_PID_cutoff_ch = Channel.of(params.tail_PID_cutoff)
-        tail_NID_cutoff_ch = Channel.of(params.tail_NID_cutoff)
-
-        scripts = Channel.fromPath( "./scripts" )
 
         // Validate channels
         input_files_ch
@@ -134,10 +129,7 @@ workflow {
                 R_and_F_ch,
                 R1_ch,
                 R2_ch,
-                R5_ch,
-                scripts,
-                tail_PID_cutoff_ch,
-                tail_NID_cutoff_ch
+                R5_ch
             )
         } else if (params.pt_option == "individual") {
             PYOCIN_TYPER_INDIVIDUAL(
@@ -145,10 +137,7 @@ workflow {
                 R_and_F_ch,
                 R1_ch,
                 R2_ch,
-                R5_ch,
-                scripts,
-                tail_PID_cutoff_ch,
-                tail_NID_cutoff_ch
+                R5_ch
             )
         } 
 }
