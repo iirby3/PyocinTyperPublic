@@ -12,7 +12,7 @@ Install nextflow following the instructions at https://www.nextflow.io/docs/late
 Install cd-hit following the instructions at https://github.com/weizhongli/cdhit.
 
 **Anaconda**  
-This pipleine is enabled with conda. Install conda at https://anaconda.org/.  
+This pipeline is enabled with conda. Install conda at https://anaconda.org/.  
 
 All dependencies must be added to path.
 
