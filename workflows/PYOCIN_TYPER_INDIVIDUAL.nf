@@ -8,6 +8,7 @@ include { move_confirmed_pyocins } from '../modules/move_confirmed_pyocins.nf'
 include { typing_blast } from '../modules/typing_blast.nf'
 include { move_typed_pyocins } from '../modules/move_typed_pyocins.nf'
 include { merge_pyocins } from '../modules/merge_pyocins.nf'
+include { summary_table } from '../modules/summary_table.nf'
 
 //
 // WORKFLOW: PYOCIN_TYPER_INDIVIDUAL
@@ -96,6 +97,19 @@ workflow PYOCIN_TYPER_INDIVIDUAL {
         // Move typed pyocins
         move_typed_pyocins(
             typing_blast_ch
+        )
+
+        // Collect R and RF subtypes
+        R_RF_subtyped_ch =  typing_blast.out.typing_summary_table
+            .collectFile(
+                storeDir: "${params.outdir}/summary_files",
+                name: 'R_RF_subtypes.csv',
+                keepHeader: true
+            )
+
+        summary_table(
+            sort_blast_new_individual.out.all_typed,
+            R_RF_subtyped_ch
         )
 
 }

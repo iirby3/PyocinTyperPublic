@@ -11,13 +11,8 @@ process split_files {
         
     script:
     """
-    csplit -z ${input_file} /Cluster/ '{*}'
-
-    for infile in xx*;
-    do
-        sed -i '1d' \${infile}
-    done
-
+    awk '/^>Cluster/ {x="file"++i; next} {print > x}' $input_file
+    
     reformat_cd_hit.py
 
     """
