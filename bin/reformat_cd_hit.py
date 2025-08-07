@@ -6,17 +6,17 @@ import glob, os
 
 data=[]
 
-for file in glob.glob("x*"):
+for file in glob.glob("file*"):
 	if os.path.getsize(file) == 0:
 		print(file)
 	else:
 		f=open(file, 'r')
 		results = pd.read_table(f, header=None)
 		results['Cluster']=file
-		acc = results['Cluster'].str.split("x", expand = True)
-		results['Cluster']= acc[2]
+		acc = results['Cluster'].str.split("file", expand = True)
+		results['Cluster']= acc[1]
 		data.append(results)
-
+		
 table = pd.concat([dfi.rename({old: new for new, old in enumerate(dfi.columns)}, axis=1) for dfi in data], ignore_index=True)
 table.rename(columns = {0:'Number', 1:'Header',2:'Cluster'}, inplace = True)
 

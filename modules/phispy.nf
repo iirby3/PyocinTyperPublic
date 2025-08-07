@@ -19,10 +19,18 @@ process phispy {
 
     cp \${base}_phispy_results/phage.fasta \${base}_phage.fasta
 
-    sed -i "s/^>\\(.*\\)/>\\1_\${base}/" \${base}_phage.fasta
-    sed -i "s/\\[//g" \${base}_phage.fasta
-    sed -i "s/\\]//g" \${base}_phage.fasta
-    sed -i 's/ /_/g' \${base}_phage.fasta
+    if sed --version >/dev/null 2>&1; then
+        # GNU sed (Linux)
+        SED_INPLACE=(-i)
+    else
+        # BSD sed (macOS)
+        SED_INPLACE=(-i '')
+    fi
+
+    sed "\${SED_INPLACE[@]}" "s/^>\\(.*\\)/>\\1_\${base}/" \${base}_phage.fasta
+    sed "\${SED_INPLACE[@]}" "s/\\[//g" \${base}_phage.fasta
+    sed "\${SED_INPLACE[@]}" "s/\\]//g" \${base}_phage.fasta
+    sed "\${SED_INPLACE[@]}" 's/ /_/g' \${base}_phage.fasta
 
     """
 }
