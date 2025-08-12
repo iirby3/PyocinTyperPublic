@@ -6,7 +6,6 @@ process reformat_pyocin_blast {
         tuple val(ID), path(blast_result), val(PID), val(NID), path(cluster_overview), path(ref_clusters)
 
     output:
-        tuple val(ID), path("${ID}_fasta.txt"), emit: pyocin_fasta
         tuple val(ID), path("${ID}_list.txt"), emit: pyocin_list
         
     script:

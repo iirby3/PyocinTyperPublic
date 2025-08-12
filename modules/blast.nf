@@ -4,7 +4,7 @@ process blast {
 
     memory '20 GB'
 
-    publishDir "${params.outdir}/blast_results", mode: 'copy'
+    publishDir "${params.outdir}/blast_results/typing_blast_results", mode: 'copy'
 
     input:
         tuple val(ID), path(query), val(PID), val(NID), path(blast_db_path)

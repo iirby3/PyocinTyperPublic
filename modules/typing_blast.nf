@@ -4,7 +4,7 @@ process typing_blast {
 
     memory '20 GB'
 
-    publishDir "${params.outdir}/blast_results/typing_blast_results", mode: 'copy'
+    publishDir "${params.outdir}/blast_results/subtyping_blast_results", mode: 'copy'
 
     input:
         tuple val(ID), path(ref), path(R1), path(R2), path(R5)

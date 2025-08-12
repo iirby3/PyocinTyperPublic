@@ -14,6 +14,6 @@ R_RF_subtyped_df = pd.read_csv(R_RF_subtyped, sep = ",")
 
 merged = all_typed_df.merge(R_RF_subtyped_df, on = "Header", how = "left")
 
-merged['Genome'] = merged['Header'].str.extract(r'_([^_]+)$')
+merged['Genome'] = merged['Header'].str.extract(r'_pp_[^_]+_(.*)')
 
 merged.to_csv("final_summary_types_subtypes.csv", index = None)

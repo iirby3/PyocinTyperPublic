@@ -10,17 +10,13 @@ if __name__ == "__main__":
     pyocin_input = sys.argv[3]
     output = sys.argv[4]
 
-table = pd.read_table(f"{clusters}", sep=",")
+table = pd.read_table(clusters, sep=",")
 
 # Read in cluster reference table
-ref_table = pd.read_table(f"{ref_list}", sep="\t", header=None)
-
-ref_table.rename(columns = {0:'Header', 1:'Cluster'}, inplace = True)
+ref_table = pd.read_table(ref_list, sep=",")
 
 # Merge with pyocin blast output
-meta = pd.read_table(f"{pyocin_input}", sep="\t", header=None)
-
-print(meta)
+meta = pd.read_table(pyocin_input, sep="\t", header=None)
 
 meta.rename(columns = {0:'Header'}, inplace = True)
 

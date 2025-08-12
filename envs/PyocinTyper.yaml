@@ -6,6 +6,6 @@ channels:
 dependencies:
   - blast
   - seqkit
-  - phispy
+  - vclust
   - pandas
   - numpy

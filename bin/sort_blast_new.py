@@ -13,12 +13,12 @@ if __name__ == "__main__":
     F_pyocin_PID = sys.argv[5]
     F_pyocin_NID = sys.argv[6]
 
-header = pd.read_table(f"{list_input}", sep="\t", header=None)
+header = pd.read_table(list_input, sep="\t", header=None)
 header.rename(columns = {0:'Header'}, inplace = True)
 
 header_no_dup = header.drop_duplicates()
 
-blast_all = pd.read_table(f'{blast_input}', names = ['qseqid', 'Header', 'sacc', 'pident', 'nident', 'qlen', 'length', 'evalue', 'slen', 'qstart', 'qend', 'sstart', 'send'])
+blast_all = pd.read_table(blast_input, names = ['qseqid', 'Header', 'sacc', 'pident', 'nident', 'qlen', 'length', 'evalue', 'slen', 'qstart', 'qend', 'sstart', 'send'])
 
 R_pyocins = blast_all[blast_all['qseqid'] == "PAO1_R_Pyocin"]
 R_pyocins.reset_index(inplace=True)
