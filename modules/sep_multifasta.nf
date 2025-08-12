@@ -1,6 +1,6 @@
 process sep_multifasta {
 
-    publishDir "${params.outdir}/pyocin_fasta", mode: 'copy'
+    publishDir "${params.outdir}/pyocin_fasta/all_potential_fasta", mode: 'copy'
 
     input:
         tuple val(ID), path(list), path(multifasta)

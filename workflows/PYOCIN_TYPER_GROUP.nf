@@ -1,7 +1,8 @@
 #!/usr/bin/env nextflow
 
 include { phispy } from '../modules/phispy.nf'
-include { cd_hit } from '../modules/cd_hit.nf'
+include { vclust } from '../modules/vclust.nf'
+include { concat_vclust_reps } from '../modules/concat_vclust_reps.nf'
 include { split_files } from '../modules/split_files.nf'
 include { blast_db as all_blast_db } from '../modules/blast_db.nf'
 include { blast_db as R_and_F_blast_db } from '../modules/blast_db.nf'
@@ -39,20 +40,22 @@ workflow PYOCIN_TYPER_GROUP {
                 storeDir: "${params.outdir}",
                 name: 'all_prophage.fasta'
             )
-
-        // Run cd-hit to cluster phage into families for comparison to R and F pyocins from PAO1
-        cd_hit(
+        
+        // Use vclust to cluster all potential phage regions on an ani threshold
+        vclust(
             concatenate_paths_ch
         )
+        
+        vclust_multifasta_ch = vclust.out.vclust_list
+            .combine( concatenate_paths_ch )
 
-        // Split cd-hit result and reformat result
-        split_files(
-            cd_hit.out.cd_hit_cluster
+        concat_vclust_reps(
+            vclust_multifasta_ch
         )
 
         // Make blast_db
         all_blast_db(
-            cd_hit.out.cd_hit_fasta
+            concat_vclust_reps.out
         )
 
         R_and_F_blast_ch = R_and_F_ch
@@ -64,8 +67,8 @@ workflow PYOCIN_TYPER_GROUP {
         )
 
         R_and_F_blast_combined = R_and_F_blast.out.blast_output
-            .combine(split_files.out.cluster_overview)
-            .combine(split_files.out.ref_clusters)
+            .combine(vclust.out.vclust_summary_table)
+            .combine(vclust.out.vclust_rep_table)
 
         // Reformat the blast outputs
         reformat_pyocin_blast(
@@ -75,12 +78,15 @@ workflow PYOCIN_TYPER_GROUP {
         pyocin_list_multi_ch = reformat_pyocin_blast.out.pyocin_list
             .combine( concatenate_paths_ch )
         
-        // Seprate multifasta file
+        // Separate multifasta file
         sep_multifasta(
             pyocin_list_multi_ch
         )
 
-        merge_pyocins(sep_multifasta.out.all_pyocin_fasta.collect())
+        merge_pyocins(
+            sep_multifasta.out.all_pyocin_fasta
+            .collect()
+        )
 
         // Run blast of R and F on all hypothesized pyocin clusters
         R_and_F_blast_db(

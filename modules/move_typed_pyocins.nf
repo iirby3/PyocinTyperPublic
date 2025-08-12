@@ -1,6 +1,6 @@
 process move_typed_pyocins {
 
-    publishDir "${params.outdir}/pyocin_fasta/typed", mode: 'copy'
+    publishDir "${params.outdir}/pyocin_fasta/subtyped_fasta", mode: 'copy'
 
     input:
         tuple val(ID), val(type), path(list), path(multifasta)

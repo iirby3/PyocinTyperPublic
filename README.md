@@ -31,7 +31,7 @@ nextflow pull GaTechBrownLab/PyocinTyper
 
 **Basic usage:**  
 ```bash
-nextflow run main.nf -with-conda --pt_option <group|individual> --input_files ./data/*.gbff --outdir /results
+nextflow run main.nf -with-conda --pt_option <group|individual> --input_files "./data/*.gbff" --outdir "/results"
 ```
 
 ## Documentation

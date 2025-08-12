@@ -18,9 +18,9 @@ def type_pyocins(df, type):
     blast_results['Query_Cov'] = ((blast_results['length']/blast_results['qlen'])*100)
     pyocin_nident = blast_results[~(blast_results['Query_Cov'] <= float(NID))]
     pyocin_pident = pyocin_nident[~(pyocin_nident['pident'] <= float(PID))]
-    pyocin_pident['Pyocin_Type'] = type
+    pyocin_pident['Subtype'] = type
     
-    pyocin_list = pyocin_pident[["Header", "Pyocin_Type"]]
+    pyocin_list = pyocin_pident[["Header", "Subtype"]]
     return pyocin_list
 
 R1_list = type_pyocins(f"{R1_input}", "R1")

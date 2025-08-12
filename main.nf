@@ -43,9 +43,17 @@ def helpMessage() {
         --tail_NID_cutoff           Nucleotide identity cutoff for tail fibers
                                     (default: 95)
 
-    Other parameters:
-        --cd_hit_cluster            Clustering level for psi-cd-hit
-                                    (default: 70)
+    vclust parameters:
+        --vclust_ani                Clustering level for vclust ani
+                                    (default: 0.70)
+        --vclust_algorithm          Algorithm for vclust
+                                    (default: cd-hit)
+        --vclust_qcov               Query coverage for vclust
+                                    (default: 0.70)
+        --vlust_rcov                Reference coverage for vclust
+                                    (default: 0.70)
+        --vlcust_len_ratio          Length ratio for vclust
+                                    (default: 0.70)
 
     Performance options:
         --phispy_threads            Specify number of threads for PhiSpy

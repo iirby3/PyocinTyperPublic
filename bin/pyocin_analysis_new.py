@@ -11,7 +11,7 @@ if __name__ == "__main__":
     NID = sys.argv[4]
 
 #Read in blast result as table
-pyocin_table = pd.read_table(f'{pyocin_input}', names = ['qseqid', 'sseqid', 'sacc', 'pident', 'nident', 'qlen', 'length', 'evalue', 'slen', 'qstart', 'qend', 'sstart', 'send'])
+pyocin_table = pd.read_table(pyocin_input, names = ['qseqid', 'sseqid', 'sacc', 'pident', 'nident', 'qlen', 'length', 'evalue', 'slen', 'qstart', 'qend', 'sstart', 'send'])
 
 # Get pyocin length
 length = pyocin_table.loc[0, 'qlen']
@@ -33,8 +33,6 @@ pyocin_sum.reset_index(inplace=True)
 
 #Add a column where every entry is the length of the reference pyocin
 pyocin_sum['Pyocin_Length'] = length
-
-print(pyocin_sum)
 
 #Get the percentage match of the alignment to the reference pyocin
 pyocin_sum['Percent_Pyocin'] = ((pyocin_sum['length']/pyocin_sum['Pyocin_Length'])*100)
